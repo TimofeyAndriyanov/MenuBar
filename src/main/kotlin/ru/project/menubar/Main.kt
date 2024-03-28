@@ -3,7 +3,9 @@ package ru.project.menubar
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
+import androidx.compose.ui.window.rememberWindowState
 
 @Composable
 fun app() {
@@ -37,10 +39,27 @@ fun app() {
 
                             }
                         )
-                        itemMenu(
+                        pullOutList(
                             title = "Параметры",
-                            onClick = {
+                            items = {
+                                itemMenu(
+                                    title = "item 1",
+                                    onClick = {
 
+                                    }
+                                )
+                                itemMenu(
+                                    title = "item 2",
+                                    onClick = {
+
+                                    }
+                                )
+                                itemMenu(
+                                    title = "item 3",
+                                    onClick = {
+
+                                    }
+                                )
                             }
                         )
                         itemMenu(
@@ -79,6 +98,6 @@ fun main() = application {
         title = "MenuBar",
         content = {
             app()
-        },
+        }
     )
 }

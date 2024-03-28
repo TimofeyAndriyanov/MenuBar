@@ -6,10 +6,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInParent
+import androidx.compose.ui.layout.positionInRoot
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.DpOffset
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.WindowState
+import androidx.compose.ui.window.rememberWindowState
 
 @Composable
 fun menuBar(
@@ -54,9 +63,12 @@ fun pullOutList(
     modifier: Modifier = Modifier.styleDefaultItem()
 ) {
     val mutableExpanded = remember { mutableStateOf(false) }
+    val mutableOffSet = remember { mutableStateOf(Offset(0F, 0F)) }
+
     Button(
         onClick = {
             mutableExpanded.value = true
+
         },
         content = {
             Text(
@@ -68,16 +80,23 @@ fun pullOutList(
                 )
             )
         },
-        modifier = modifier,
+        modifier = modifier.onGloballyPositioned {
+            mutableOffSet.value = it.positionInParent()
+        },
         colors = ButtonDefaults.buttonColors(
             backgroundColor = Color.White
         )
     )
+
     DropdownMenu(
         expanded = mutableExpanded.value,
         onDismissRequest = {
             mutableExpanded.value = false
         },
-        content = items
+        content = items,
+        offset = DpOffset(
+            x = (mutableOffSet.value.x + 10F).dp,
+            y = 5.dp
+        )
     )
 }
