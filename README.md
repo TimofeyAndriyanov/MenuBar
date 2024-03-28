@@ -1,4 +1,4 @@
-# MenuBar UI элемент JetPack Compose для desktop.
+# MenuBar - UI элемент JetPack Compose для desktop.
 
 ---
 
